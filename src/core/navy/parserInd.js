@@ -9,41 +9,41 @@ const POST = /\[[\s]*?POST[\s]*?\]([\s\S]*?)(\[POST|\[UPDATE|\[EOF)/gm
 
 export default class ParserIND {
 
-    constructor(tagProps, src) {
+  constructor(tagProps, src) {
 
-        this.tagProps = this.parseTagProps(tagProps)
-        this.src = src
+    this.tagProps = this.parseTagProps(tagProps)
+    this.src = src
 
-        this.parseBody()
+    this.parseBody()
 
         
 
+  }
+
+  parseTagProps(src) {
+
+    const obj = {}
+    const pairs = src.split(',')
+    for (var p of pairs) {
+      const [key, val] = p.split('=')
+      obj[key.trim()] = val.trim()
     }
+    return obj
 
-    parseTagProps(src) {
+  }
 
-        let obj = {}
-        let pairs = src.split(',')
-        for (var p of pairs) {
-            let [key, val] = p.split('=')
-            obj[key.trim()] = val.trim()
-        }
-        return obj
+  parseBody() {
 
-    }
+    SPLIT.lastIndex = 0
+    UPDATE.lastIndex = 0
+    POST.lastIndex = 0
 
-    parseBody() {
+    let code = tools.decomment(this.src)
 
-        SPLIT.lastIndex = 0
-        UPDATE.lastIndex = 0
-        POST.lastIndex = 0
+    this.init = code.split(SPLIT)[0]
+    code += '\n[EOF]'
+    this.update = (UPDATE.exec(code) || [])[1]
+    this.post = (POST.exec(code) || [])[1]
 
-        let code = tools.decomment(this.src)
-
-        this.init = code.split(SPLIT)[0]
-        code += '\n[EOF]'
-        this.update = (UPDATE.exec(code) || [])[1]
-        this.post = (POST.exec(code) || [])[1]
-
-    }
+  }
 }

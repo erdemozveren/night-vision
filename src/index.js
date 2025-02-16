@@ -12,7 +12,7 @@ import Utils from './stuff/utils.js'
 import Parser from './core/navy/parser.js'
 
 export {
-    NightVision, DataHub, MetaHub,
-    DataScan, Scripts, Events,
-    Const, Utils, Parser
+  NightVision, DataHub, MetaHub,
+  DataScan, Scripts, Events,
+  Const, Utils, Parser
 }

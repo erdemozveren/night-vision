@@ -10,71 +10,71 @@ const HPX = Const.HPX
 
 export default class Crosshair extends Layer {
 
-    constructor(id, nvId) {
-        super(id, '__$Crosshair__', nvId)
+  constructor(id, nvId) {
+    super(id, '__$Crosshair__', nvId)
 
-        this.events = Events.instance(this.nvId)
-        this.events.on(`crosshair:show-crosshair`, this.onShowHide.bind(this))
+    this.events = Events.instance(this.nvId)
+    this.events.on('crosshair:show-crosshair', this.onShowHide.bind(this))
         
-        this.id = id
-        this.zIndex = 1000000
-        this.ctxType = 'Canvas'
-        this.show = true
+    this.id = id
+    this.zIndex = 1000000
+    this.ctxType = 'Canvas'
+    this.show = true
 
-        this.overlay = {
-            draw: this.draw.bind(this),
-            destroy: this.destroy.bind(this)
-        }
-
-        this.env = {
-            update: this.envEpdate.bind(this),
-            destroy: () => {}
-        }
+    this.overlay = {
+      draw: this.draw.bind(this),
+      destroy: this.destroy.bind(this)
     }
 
-    draw(ctx) {
+    this.env = {
+      update: this.envEpdate.bind(this),
+      destroy: () => {}
+    }
+  }
 
-        if (!this.layout) return
+  draw(ctx) {
 
-        const cursor = this.props.cursor
+    if (!this.layout) return
 
-        if (!cursor.visible || !this.show) return
+    const cursor = this.props.cursor
 
-        //if (!this.visible && cursor.mode === 'explore') return
+    if (!cursor.visible || !this.show) return
 
-        ctx.save()
-        ctx.strokeStyle = this.props.colors.cross
-        ctx.beginPath()
-        ctx.setLineDash([5])
+    //if (!this.visible && cursor.mode === 'explore') return
 
-        // H
-        if (cursor.gridId === this.layout.id) {
-            ctx.moveTo(0, cursor.y + HPX)
-            ctx.lineTo(this.layout.width + HPX, cursor.y + HPX)
-        }
+    ctx.save()
+    ctx.strokeStyle = this.props.colors.cross
+    ctx.beginPath()
+    ctx.setLineDash([5])
 
-        // V
-        ctx.moveTo(cursor.x, 0)
-        ctx.lineTo(cursor.x, this.layout.height)
-        ctx.stroke()
-        ctx.restore()
+    // H
+    if (cursor.gridId === this.layout.id) {
+      ctx.moveTo(0, cursor.y + HPX)
+      ctx.lineTo(this.layout.width + HPX, cursor.y + HPX)
     }
 
-    envEpdate(ovSrc, layout, props) {
-        this.ovSrc = ovSrc
-        this.layout = layout
-        this.props = props
-    }
+    // V
+    ctx.moveTo(cursor.x, 0)
+    ctx.lineTo(cursor.x, this.layout.height)
+    ctx.stroke()
+    ctx.restore()
+  }
 
-    onCursor(update) {
-        if (this.props) this.props.cursor = update
-    }
+  envEpdate(ovSrc, layout, props) {
+    this.ovSrc = ovSrc
+    this.layout = layout
+    this.props = props
+  }
 
-    onShowHide(flag) {
-        this.show = flag
-    }
+  onCursor(update) {
+    if (this.props) this.props.cursor = update
+  }
 
-    destroy() {
-        this.events.off('crosshair')
-    }
+  onShowHide(flag) {
+    this.show = flag
+  }
+
+  destroy() {
+    this.events.off('crosshair')
+  }
 }

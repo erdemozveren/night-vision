@@ -2,11 +2,11 @@
 
 function Context($p) {
 
-    let el = document.createElement('canvas')
-    let ctx = el.getContext("2d")
-    ctx.font = $p.config.FONT
+  const el = document.createElement('canvas')
+  const ctx = el.getContext('2d')
+  ctx.font = $p.config.FONT
 
-    return ctx
+  return ctx
 
 }
 
