@@ -11,7 +11,8 @@
     "dev": "vite --host",
     "build": "vite build && node ./types/build-script.cjs",
     "build-cdn": "vite build --config vite.cdn.config.js",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "npx eslint src --fix"
   },
   "main": "./dist/night-vision.js",
   "module": "./dist/night-vision.js",
