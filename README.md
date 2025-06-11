@@ -19,7 +19,7 @@ Start your charting journey with our interactive [**[DOCS]**](https://nightvisio
 ## Installation
 
 ```sh
-npm i night-vision
+npm i github:erdemozveren/night-vision
 ```
 
 ## Usage
