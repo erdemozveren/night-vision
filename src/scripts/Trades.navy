@@ -78,7 +78,7 @@ drawLabels(ctx, view, data, layout) {
 }
 
 // Sample data point with index 2
-static preSampler(x) => x[2]
+static preSampler(x) => x?.[2]
 
 // Not affecting the y-range
 static yRange() => null
