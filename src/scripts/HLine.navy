@@ -6,7 +6,7 @@
 
 prop('color', { type: 'color', def: '#2962ff' })
 prop('dashed', { type: 'boolean', def: false })
-prop('lineWidth', { type: 'number', def: 2 })
+prop('lineWidth', { type: 'number', def: 1 })
 
 draw(ctx) {
     const layout = $core.layout
