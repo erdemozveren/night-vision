@@ -2909,7 +2909,7 @@ const __vite_glob_0_4 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.def
   __proto__: null,
   default: Cloud
 }, Symbol.toStringTag, { value: "Module" }));
-const HLine = "// Navy ~ 0.2-lite\n// ^^^ First comment should provide a NavyJS version\n\n// Meta tag\n[OVERLAY name = HLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]\n\nprop('color', { type: 'color', def: '#2962ff' })\nprop('dashed', { type: 'boolean', def: false })\nprop('lineWidth', { type: 'number', def: 2 })\n\ndraw(ctx) {\n    const layout = $core.layout\n    const dash = $props.dashed ? [20,10] : [];\n    const data = $core.data\n\n    ctx.strokeStyle = $props.color\n    ctx.lineWidth = $props.lineWidth\n    ctx.setLineDash(dash)\n\n    for(let i=0;i<data.length;i+=1){\n    if(!data[i]?.[1]) continue;\n    const y = layout.value2y(data[i][1])\n    ctx.beginPath()\n    ctx.moveTo(0, y)\n    ctx.lineTo(layout.width, y)\n    ctx.stroke()\n    }\n}\n\n// Not affecting the y-range\nstatic yRange() => null\n";
+const HLine = "// Navy ~ 0.2-lite\n// ^^^ First comment should provide a NavyJS version\n\n// Meta tag\n[OVERLAY name = HLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]\n\nprop('color', { type: 'color', def: '#2962ff' })\nprop('dashed', { type: 'boolean', def: false })\nprop('lineWidth', { type: 'number', def: 1 })\n\ndraw(ctx) {\n    const layout = $core.layout\n    const dash = $props.dashed ? [20,10] : [];\n    const data = $core.data\n\n    ctx.strokeStyle = $props.color\n    ctx.lineWidth = $props.lineWidth\n    ctx.setLineDash(dash)\n\n    for(let i=0;i<data.length;i+=1){\n    if(!data[i]?.[1]) continue;\n    const y = layout.value2y(data[i][1])\n    ctx.beginPath()\n    ctx.moveTo(0, y)\n    ctx.lineTo(layout.width, y)\n    ctx.stroke()\n    }\n}\n\n// Not affecting the y-range\nstatic yRange() => null\n";
 const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: HLine
@@ -3316,7 +3316,7 @@ const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   __proto__: null,
   default: Trades
 }, Symbol.toStringTag, { value: "Module" }));
-const VLine = "// Navy ~ 0.1-lite\n// ^^^ First comment should provide a NavyJS version\n\n// Meta tag\n[OVERLAY name = VLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]\n\nprop('color', { type: 'color', def: '#2962ff' })\nprop('dashed', { type: 'boolean', def: false })\nprop('lineWidth', { type: 'number', def: 2 })\n\ndraw(ctx) {\n    const layout = $core.layout\n    const dash = $props.dashed ? [20,10] : [];\n    const data = $core.data\n    const view = $core.view\n\n    ctx.strokeStyle = $props.color\n    ctx.lineWidth = $props.lineWidth\n    ctx.setLineDash(dash)\n\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n      let p = data[i]\n      if(!p) continue;\n      let x = layout.ti2x(p[0], i)\n      const y = layout.time2x(p[0])\n      ctx.beginPath()\n      ctx.moveTo(x, 0)\n      ctx.lineTo(x, layout.height)\n      ctx.stroke()\n    }\n}\n\n// Not affecting the y-range\nstatic yRange() => null\n\n";
+const VLine = "// Navy ~ 0.1-lite\n// ^^^ First comment should provide a NavyJS version\n\n// Meta tag\n[OVERLAY name = VLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]\n\nprop('color', { type: 'color', def: '#2962ff' })\nprop('dashed', { type: 'boolean', def: false })\nprop('lineWidth', { type: 'number', def: 1 })\n\ndraw(ctx) {\n    const layout = $core.layout\n    const dash = $props.dashed ? [20,10] : [];\n    const data = $core.data\n    const view = $core.view\n\n    ctx.strokeStyle = $props.color\n    ctx.lineWidth = $props.lineWidth\n    ctx.setLineDash(dash)\n\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n      let p = data[i]\n      if(!p) continue;\n      let x = layout.ti2x(p[0], i)\n      const y = layout.time2x(p[0])\n      ctx.beginPath()\n      ctx.moveTo(x, 0)\n      ctx.lineTo(x, layout.height)\n      ctx.stroke()\n    }\n}\n\n// Not affecting the y-range\nstatic yRange() => null\n\n";
 const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   default: VLine
@@ -6197,8 +6197,8 @@ class Input {
     });
   }
   async listeners() {
-    const Hamster = await import("./hamster-7ec10a2e.js").then((n) => n.h);
-    const Hammer = await import("./hammer-abbae807.js").then((n) => n.h);
+    const Hamster = await import("./hamster-8829d4bd.js").then((n) => n.h);
+    const Hammer = await import("./hammer-2499b448.js").then((n) => n.h);
     this.hm = Hamster.default(this.canvas);
     this.hm.wheel((event, delta) => this.mousezoom(-delta * 50, event));
     const mc = this.mc = new Hammer.Manager(this.canvas);
@@ -8149,7 +8149,7 @@ function instance$9($$self, $$props, $$invalidate) {
     }
   }
   async function listeners() {
-    const Hammer = await import("./hammer-abbae807.js").then((n) => n.h);
+    const Hammer = await import("./hammer-2499b448.js").then((n) => n.h);
     mc = new Hammer.Manager(canvas);
     mc.add(new Hammer.Pan({
       direction: Hammer.DIRECTION_VERTICAL,
