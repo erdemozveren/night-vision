@@ -2932,6 +2932,11 @@ legendHtml(x, prec, f) {
     __proto__: null,
     default: Cloud
   }, Symbol.toStringTag, { value: "Module" }));
+  const HLine = "// Navy ~ 0.2-lite\n// ^^^ First comment should provide a NavyJS version\n\n// Meta tag\n[OVERLAY name = HLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]\n\nprop('color', { type: 'color', def: '#2962ff' })\nprop('dashed', { type: 'boolean', def: false })\nprop('lineWidth', { type: 'number', def: 2 })\n\ndraw(ctx) {\n    const layout = $core.layout\n    const dash = $props.dashed ? [20,10] : [];\n    const data = $core.data\n\n    ctx.strokeStyle = $props.color\n    ctx.lineWidth = $props.lineWidth\n    ctx.setLineDash(dash)\n\n    for(let i=0;i<data.length;i+=1){\n    if(!data[i]?.[1]) continue;\n    const y = layout.value2y(data[i][1])\n    ctx.beginPath()\n    ctx.moveTo(0, y)\n    ctx.lineTo(layout.width, y)\n    ctx.stroke()\n    }\n}\n\n// Not affecting the y-range\nstatic yRange() => null\n";
+  const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+    __proto__: null,
+    default: HLine
+  }, Symbol.toStringTag, { value: "Module" }));
   const Histogram = `// Navy ~ 0.2-lite
 
 // <ds>Colored histogram, can be used for MACD</ds>
@@ -3070,7 +3075,7 @@ legend(x) => [
     [x[3], $props.colorSignal]
 ]
 `;
-  const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: Histogram
   }, Symbol.toStringTag, { value: "Module" }));
@@ -3179,7 +3184,7 @@ drawBody(ctx, item) {
 // Legend, defined as pairs [value, color]
 legend(x) => [[x[1].text, x[1].color || $props.color]]
 `;
-  const __vite_glob_0_6 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: PriceLabels
   }, Symbol.toStringTag, { value: "Module" }));
@@ -3240,12 +3245,17 @@ yRange(data, hi, lo) => [
 // Legend, defined as pairs [value, color]
 legend(x) => [[x[1], $props.color]]
 `;
-  const __vite_glob_0_7 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: Range
   }, Symbol.toStringTag, { value: "Module" }));
+  const Scotch = "// Navy ~ 0.2-lite\n// <ds>Stochastic</ds>, format: [<timestamp>, <kLine>, <dLine>]\n\n[OVERLAY name=Stoch, version=1.0.0]\n\nprop('kColor', { type: 'color', def: '#3782f2' })\nprop('dColor', { type: 'color', def: '#f48709' })\nprop('bandColor', { type: 'color', def: '#535559' })\nprop('backColor', { type: 'color', def: '#381e9c16' })\nprop('upperBand', { type: 'number', def: 80 })\nprop('lowerBand', { type: 'number', def: 20 })\n\ndraw(ctx) {\n    const layout = $core.layout\n    const upper = layout.value2y($props.upperBand)\n    const lower = layout.value2y($props.lowerBand)\n    const data = $core.data\n    const view = $core.view\n\n    // K\n    ctx.lineWidth = 1\n    ctx.strokeStyle = $props.kColor\n    ctx.beginPath()\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[1])\n        ctx.lineTo(x, y)\n    }\n    ctx.stroke()\n\n    // D\n    ctx.strokeStyle = $props.dColor\n    ctx.beginPath()\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[2])\n        ctx.lineTo(x, y)\n    }\n    ctx.stroke()\n\n    ctx.strokeStyle = $props.bandColor\n    ctx.setLineDash([5]) // Will be removed after draw()\n    ctx.beginPath()\n    // Fill the area between the bands\n    ctx.fillStyle = $props.backColor\n    ctx.fillRect(0, upper, layout.width, lower - upper)\n    // Upper band\n    ctx.moveTo(0, upper)\n    ctx.lineTo(layout.width, upper)\n    // Lower band\n    ctx.moveTo(0, lower)\n    ctx.lineTo(layout.width, lower)\n    ctx.stroke()\n}\n\nyRange(data, hi, lo) => [\n    Math.max(hi, $props.upperBand),\n    Math.min(lo, $props.lowerBand)\n]\n\n// Legend, defined as pairs [value, color]\nlegend(x) => [[x[1], $props.kColor], [x[1], $props.dColor]]\n";
+  const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+    __proto__: null,
+    default: Scotch
+  }, Symbol.toStringTag, { value: "Module" }));
   const Sparse = "// Navy ~ 0.2-lite\n\n// <ds>Sparse data: points, squares, crosses, triangles</ds>\n// Format: [<timestamp>, <value>, <?direction>]\n// <value> :: Price/value\n// <?direction> :: Triangle direction: 1 | -1\n\n[OVERLAY name=Sparse, ctx=Canvas, verion=1.0.0]\n\n// Overlay props\nprop('color', { type: 'Color', def: '#898989' })\nprop('size', { type: 'number', def: 3 })\nprop('shape', {\n    type: 'string',\n    def: 'point',\n    options: ['point', 'square', 'cross', 'triangle']\n})\n\n// Draw call\ndraw(ctx) {\n    const layout = $core.layout\n    const view = $core.view\n\n    ctx.fillStyle = $props.color\n    ctx.strokeStyle = $props.color\n\n    switch($props.shape) {\n        case 'point':\n            drawArcs(ctx, view, layout)\n        break\n        case 'square':\n            drawSquares(ctx, view, layout)\n        break\n        case 'cross':\n            drawCrosses(ctx, view, layout)\n        break\n        case 'triangle':\n            drawTriandles(ctx, view, layout)\n        break\n    }\n}\n\ndrawArcs(ctx, view, layout) {\n    const radius = $props.size\n    const data = view.src\n    ctx.beginPath()\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[1])\n        ctx.moveTo(x+radius, y)\n        ctx.arc(x, y, radius, 0, Math.PI * 2, false)\n    }\n    ctx.fill()\n}\n\ndrawSquares(ctx, view, layout) {\n    const half = $props.size\n    const side = half * 2\n    const data = view.src\n    ctx.beginPath()\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[1])\n        ctx.moveTo(x-half, y-half)\n        ctx.lineTo(x+half, y-half)\n        ctx.lineTo(x+half, y+half)\n        ctx.lineTo(x-half, y+half)\n    }\n    ctx.fill()\n}\n\ndrawCrosses(ctx, view, layout) {\n    const half = $props.size\n    const side = half * 2\n    const data = view.src\n    ctx.lineWidth = Math.max(half - 1, 1)\n    ctx.beginPath()\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[1])\n        ctx.moveTo(x-half, y)\n        ctx.lineTo(x+half, y)\n        ctx.moveTo(x, y-half)\n        ctx.lineTo(x, y+half)\n    }\n    ctx.stroke()\n}\n\ndrawTriandles(ctx, view, layout) {\n    const half = $props.size\n    const side = half * 2\n    const data = view.src\n    ctx.beginPath()\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[1])\n        let dir = p[2] ?? 1\n        ctx.moveTo(x, y)\n        ctx.lineTo(x + side * dir * 0.63, y + side * dir)\n        ctx.lineTo(x - side * dir * 0.63, y + side * dir)\n    }\n    ctx.fill()\n}\n\nstatic yRange(data) {\n    let len = data.length\n    var h, l, high = -Infinity, low = Infinity\n    for(var i = 0; i < len; i++) {\n        let point = data[i][1]\n        if (point > high) high = point\n        if (point < low) low = point\n    }\n    return [high, low]\n}\n\nstatic preSampler(x) => [x[1]]\n\n// Legend, defined as pairs [value, color]\nlegend(x) => [[Math.random(), $props.color]]\n";
-  const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: Sparse
   }, Symbol.toStringTag, { value: "Module" }));
@@ -3315,22 +3325,27 @@ legend(x) => x.slice(1) // remove time
         v, COLORS[i % COLORS.length]
     ])
 `;
-  const __vite_glob_0_9 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: Splines
   }, Symbol.toStringTag, { value: "Module" }));
   const SuperBands = "// Navy ~ 0.2-lite\n\n// <ds>Two bands: above and below the price (like LuxAlgo Reverse Zones)</ds>\n// Format: [<timestamp>, <high1>, <mid1>, <low1>, <high2>, <mid2>, <low2>]\n/*\n--- <high1> ---\n--- <mid1> ---\n--- <low1> ---\n~~~ price ~~~\n--- <high2> ---\n--- <mid2> ---\n--- <low2> ---\n*/\n\n[OVERLAY name=SuperBands, ctx=Canvas, verion=1.0.0]\n\n// Overlay props\nprop('color1', { type: 'color', def: '#d80d3848' })\nprop('color1dark', { type: 'color', def: '#d80d3824' })\nprop('color2', { type: 'color', def: '#1edbbe33' })\nprop('color2dark', { type: 'color', def: '#1edbbe15' })\n\n// Draw call\ndraw(ctx) {\n    const view = $core.view\n    const layout = $core.layout\n\n    ctx.fillStyle = $props.color1\n    drawBand(ctx, layout, view, 1, 2)\n\n    ctx.fillStyle = $props.color1dark\n    drawBand(ctx, layout, view, 2, 3)\n\n    ctx.fillStyle = $props.color2dark\n    drawBand(ctx, layout, view, 4, 5)\n\n    ctx.fillStyle = $props.color2\n    drawBand(ctx, layout, view, 5, 6)\n\n}\n\n\ndrawBand(ctx, layout, view, i1, i2) {\n    let data = $core.view.src\n    ctx.beginPath()\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[i1] || undefined)\n        ctx.lineTo(x, y)\n    }\n    for (var i = view.i2, i1 = view.i1; i >= i1; i--) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[i2] || undefined)\n        ctx.lineTo(x, y)\n    }\n    ctx.fill()\n}\n\n// Legend, defined as pairs [value, color]\nlegend(x) => [\n    [x[1], $props.color1], [x[2], $props.color1], [x[3], $props.color1],\n    [x[4], $props.color2], [x[5], $props.color2], [x[6], $props.color2]\n]\n";
-  const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: SuperBands
   }, Symbol.toStringTag, { value: "Module" }));
   const Trades = "\n// Navy ~ 0.2-lite\n\n// <ds>Simple trades</ds>\n// Format: [<timestamp>, <dir>, <price>, <?label>]\n// <dir> :: 1 for buy -1 for sell\n// <price> :: trade price\n// <?label> :: trade label\n[OVERLAY name=Trades, ctx=Canvas, version=1.0.0]\n\nprop('buyColor', {  type: 'color', def: '#08b2c6' })\nprop('sellColor', {  type: 'color', def: '#e42633' })\nprop('radius', {  type: 'number', def: 4 })\nprop('showLabels', {  type: 'boolean', def: true })\nprop('markerOutline', {  type: 'boolean', def: true })\nprop('outlineWidth', {  type: 'number', def: 4 })\n\n// Draw function (called on each update)\n// Library provides a lot of useful variables to make\n// overlays ($core in the main collection)\ndraw(ctx) {\n    ctx.lineWidth = $props.outlineWidth\n    const layout = $core.layout\n    const data = $core.data // Full dataset\n    const view = $core.view // Visible view\n\n    // Outline\n    if ($props.markerOutline) {\n        ctx.strokeStyle = $core.colors.back\n        ctx.beginPath()\n        iterArcs(ctx, view, data, layout)\n        ctx.stroke()\n    }\n\n    // Fill sell trades\n    ctx.fillStyle = $props.buyColor\n    ctx.beginPath()\n    iterArcs(ctx, view, data, layout, -1)\n    ctx.fill()\n\n    // Fill buy trades\n    ctx.fillStyle = $props.sellColor\n    ctx.beginPath()\n    iterArcs(ctx, view, data, layout, 1)\n    ctx.fill()\n\n    // Draw labels\n    if ($props.showLabels) {\n        ctx.fillStyle = $core.colors.textHL\n        ctx.font = $core.props.config.FONT\n        ctx.textAlign = 'center'\n        drawLabels(ctx, view, data, layout)\n    }\n\n}\n\n// Iter through arcs\niterArcs(ctx, view, data, layout, dir) {\n    const radius = $props.radius\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        if (Math.sign(p[1]) === dir) continue\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[2])\n        ctx.moveTo(x+radius, y)\n        ctx.arc(x, y, radius, 0, Math.PI * 2, false)\n    }\n}\n\n// Draw simple lables\ndrawLabels(ctx, view, data, layout) {\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n        let p = data[i]\n        let x = layout.ti2x(p[0], i)\n        let y = layout.value2y(p[2])\n        ctx.fillText(p[3], x, y - 25)\n    }\n}\n\n// Sample data point with index 2\nstatic preSampler(x) => x?.[2]\n\n// Not affecting the y-range\nstatic yRange() => null\n\n// Legend formatter, Array of [value, color] pairs\n// x represents one data item e.g. [<time>, <value>]\nlegend(x) {\n    if (x[1] > 0) {\n        return [\n            ['Buy', $props.buyColor],\n            [x[2], $core.colors.text],\n            [x[3]]\n        ]\n    } else {\n        return [\n            ['Sell', $props.sellColor],\n            [x[2], $core.colors.text],\n            [x[3]]\n        ]\n    }\n}\n";
-  const __vite_glob_0_11 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: Trades
   }, Symbol.toStringTag, { value: "Module" }));
+  const VLine = "// Navy ~ 0.1-lite\n// ^^^ First comment should provide a NavyJS version\n\n// Meta tag\n[OVERLAY name = VLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]\n\nprop('color', { type: 'color', def: '#2962ff' })\nprop('dashed', { type: 'boolean', def: false })\nprop('lineWidth', { type: 'number', def: 2 })\n\ndraw(ctx) {\n    const layout = $core.layout\n    const dash = $props.dashed ? [20,10] : [];\n    const data = $core.data\n    const view = $core.view\n\n    ctx.strokeStyle = $props.color\n    ctx.lineWidth = $props.lineWidth\n    ctx.setLineDash(dash)\n\n    for (var i = view.i1, n = view.i2; i <= n; i++) {\n      let p = data[i]\n      if(!p) continue;\n      let x = layout.ti2x(p[0], i)\n      const y = layout.time2x(p[0])\n      ctx.beginPath()\n      ctx.moveTo(x, 0)\n      ctx.lineTo(x, layout.height)\n      ctx.stroke()\n    }\n}\n\n// Not affecting the y-range\nstatic yRange() => null\n\n";
+  const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+    __proto__: null,
+    default: VLine
+  }, Symbol.toStringTag, { value: "Module" }));
   const Volume = "// Navy ~ 0.2-lite\n\n// <ds>Regular volume</ds> \n// Format: [<timestamp>, <volume>, <direction>]\n// <direction> :: 1 for green volume, - 1 for red volume\n\n[OVERLAY name=Volume, ctx=Canvas, verion=1.0.0]\n\n// Overlay props\nprop('colorVolUp', { type: 'color', def: '#41a37682' })\nprop('colorVolDw', { type: 'color', def: '#de464682' })\nprop('barsHeight', { type: 'number', def: 0.15, step: 0.1 })\nprop('currencySymbol', { type: 'string', def: '$' })\nprop('showAvgVolume', { type: 'boolean', def: true })\nprop('avgVolumeSMA', { type: 'number', def: 20 })\nprop('colorAvgVol', { type: 'color', def: '#17e2bb99'})\n\n// Draw call\ndraw(ctx) {\n\n    let height = $core.id === 0 ? 0.8 : $props.barsHeight\n    let cnv = $lib.layoutCnv($core, false, true, 1, 2, height)\n    let bars = cnv.upVolbars.length ? cnv.upVolbars : cnv.dwVolbars\n    if (!bars.length) return\n\n    drawCvPart(ctx, $lib.volumeBar, cnv.dwVolbars, 'colorVolDw')\n    drawCvPart(ctx, $lib.volumeBar, cnv.upVolbars, 'colorVolUp')\n\n    if ($props.showAvgVolume) $lib.avgVolume(ctx, $core, $props, cnv, 1)\n}\n\n// Draw candle part\ndrawCvPart(ctx, f, arr, color) {\n    let layout = $core.layout\n    ctx.strokeStyle = $props[color]\n    ctx.beginPath()\n    for (var i = 0, n = arr.length; i < n; i++) {\n        f(ctx, arr[i], layout)\n    }\n    ctx.stroke()\n}\n\n// Custom y-range\nyRange(data, hi, lo) {\n    // Remove this overlay for yRange calculation\n    // if it's not the main overlay of the pane\n    if ($core.id !== 0) {\n        return null\n    } else {\n        return [hi, lo, false]\n    }\n}\n\n// Legend, defined as pairs [value, color]\nlegend(x) {\n    let v = $core.cursor.getValue($core.paneId, $core.id)\n    let sym = $props.currencySymbol\n    let color = v[2] > 0 ?\n        $props.colorVolUp : $props.colorVolDw\n    let fc = $lib.formatCash\n    return [[sym + fc(x[1]), color.slice(0, 7)]]\n}\n";
-  const __vite_glob_0_12 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: Volume
   }, Symbol.toStringTag, { value: "Module" }));
@@ -3424,7 +3439,7 @@ legendHtml(x) {
     //return [[sym + fc(x[1]), color.slice(0, 7)]]
 }
 `;
-  const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: VolumeDelta
   }, Symbol.toStringTag, { value: "Module" }));
@@ -3505,7 +3520,7 @@ yRange(data) {
 // Legend, defined as pairs [value, color]
 legend(x) => [[x[$props.dataIndex], $props.color]]
 `;
-  const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_17 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: area
   }, Symbol.toStringTag, { value: "Module" }));
@@ -3620,7 +3635,7 @@ legendHtml(x, prec, f) {
     + \`</span>\`
     }
 `;
-  const __vite_glob_0_15 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_18 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: candles
   }, Symbol.toStringTag, { value: "Module" }));
@@ -3686,7 +3701,7 @@ yRange(data) {
 // Legend, defined as pairs [value, color]
 legend(x) => [[x[$props.dataIndex], $props.color]]
 `;
-  const __vite_glob_0_16 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+  const __vite_glob_0_19 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
     __proto__: null,
     default: spline
   }, Symbol.toStringTag, { value: "Module" }));
@@ -4692,18 +4707,21 @@ If not the case just use 'lite' tag: ${VERSION}-lite`
     "../scripts/Band.navy": __vite_glob_0_2,
     "../scripts/CandlesPlus.navy": __vite_glob_0_3,
     "../scripts/Cloud.navy": __vite_glob_0_4,
-    "../scripts/Histogram.navy": __vite_glob_0_5,
-    "../scripts/PriceLabels.navy": __vite_glob_0_6,
-    "../scripts/Range.navy": __vite_glob_0_7,
-    "../scripts/Sparse.navy": __vite_glob_0_8,
-    "../scripts/Splines.navy": __vite_glob_0_9,
-    "../scripts/SuperBands.navy": __vite_glob_0_10,
-    "../scripts/Trades.navy": __vite_glob_0_11,
-    "../scripts/Volume.navy": __vite_glob_0_12,
-    "../scripts/VolumeDelta.navy": __vite_glob_0_13,
-    "../scripts/area.navy": __vite_glob_0_14,
-    "../scripts/candles.navy": __vite_glob_0_15,
-    "../scripts/spline.navy": __vite_glob_0_16
+    "../scripts/HLine.navy": __vite_glob_0_5,
+    "../scripts/Histogram.navy": __vite_glob_0_6,
+    "../scripts/PriceLabels.navy": __vite_glob_0_7,
+    "../scripts/Range.navy": __vite_glob_0_8,
+    "../scripts/Scotch.navy": __vite_glob_0_9,
+    "../scripts/Sparse.navy": __vite_glob_0_10,
+    "../scripts/Splines.navy": __vite_glob_0_11,
+    "../scripts/SuperBands.navy": __vite_glob_0_12,
+    "../scripts/Trades.navy": __vite_glob_0_13,
+    "../scripts/VLine.navy": __vite_glob_0_14,
+    "../scripts/Volume.navy": __vite_glob_0_15,
+    "../scripts/VolumeDelta.navy": __vite_glob_0_16,
+    "../scripts/area.navy": __vite_glob_0_17,
+    "../scripts/candles.navy": __vite_glob_0_18,
+    "../scripts/spline.navy": __vite_glob_0_19
   });
   const Tools = /* @__PURE__ */ Object.assign({
     "../scripts/tools/LineTool.navy": __vite_glob_1_0,
