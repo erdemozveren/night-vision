@@ -1,0 +1,31 @@
+// Navy ~ 0.2-lite
+// ^^^ First comment should provide a NavyJS version
+
+// Meta tag
+[OVERLAY name = HLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]
+
+prop('color', { type: 'color', def: '#2962ff' })
+prop('dashed', { type: 'boolean', def: false })
+prop('lineWidth', { type: 'number', def: 1 })
+
+draw(ctx) {
+    const layout = $core.layout
+    const dash = $props.dashed ? [20,10] : [];
+    const data = $core.data
+
+    ctx.strokeStyle = $props.color
+    ctx.lineWidth = $props.lineWidth
+    ctx.setLineDash(dash)
+
+    for(let i=0;i<data.length;i+=1){
+    if(!data[i]?.[1]) continue;
+    const y = layout.value2y(data[i][1])
+    ctx.beginPath()
+    ctx.moveTo(0, y)
+    ctx.lineTo(layout.width, y)
+    ctx.stroke()
+    }
+}
+
+// Not affecting the y-range
+static yRange() => null

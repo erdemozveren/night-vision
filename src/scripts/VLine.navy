@@ -1,0 +1,35 @@
+// Navy ~ 0.1-lite
+// ^^^ First comment should provide a NavyJS version
+
+// Meta tag
+[OVERLAY name = VLine, ctx = Canvas, author = ChartMaster, version = 1.0.0]
+
+prop('color', { type: 'color', def: '#2962ff' })
+prop('dashed', { type: 'boolean', def: false })
+prop('lineWidth', { type: 'number', def: 1 })
+
+draw(ctx) {
+    const layout = $core.layout
+    const dash = $props.dashed ? [20,10] : [];
+    const data = $core.data
+    const view = $core.view
+
+    ctx.strokeStyle = $props.color
+    ctx.lineWidth = $props.lineWidth
+    ctx.setLineDash(dash)
+
+    for (var i = view.i1, n = view.i2; i <= n; i++) {
+      let p = data[i]
+      if(!p) continue;
+      let x = layout.ti2x(p[0], i)
+      const y = layout.time2x(p[0])
+      ctx.beginPath()
+      ctx.moveTo(x, 0)
+      ctx.lineTo(x, layout.height)
+      ctx.stroke()
+    }
+}
+
+// Not affecting the y-range
+static yRange() => null
+
